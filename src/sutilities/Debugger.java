@@ -97,6 +97,7 @@ public final class Debugger
   /**
    * Prints the specified message to the default stream (if
    *  the debugger is in debug mode), and to the log if specified.
+   * @param location The class and method the error occurred in, ex: "Debugger: print()"
    * @param message The message to print
    * @param logToFile Whether or not the message should be logged
    */
@@ -112,20 +113,18 @@ public final class Debugger
   /**
    * Prints the specified warning to the log, and to the default stream (if
    *  the debugger is in debug mode).
+   * @param location The class and method the error occurred in, ex: "Debugger: print()"
    * @param error The message to print
    */
   public static void warning(String location, String error)
   {
-    if (isInDebugMode_)
-      System.out.println(location + ": " + error);
-    
-    if (logger_ != null)
-      logger_.log("WARNING", location, error, null, false);
+    warning(location, error, null);
   }
   
   /**
    * Prints the specified warning and cause (exception/error) to the log, and to
    *  the default stream (if the debugger is in debug mode).
+   * @param location The class and method the error occurred in, ex: "Debugger: print()"
    * @param error The message to print
    * @param cause The exception/error that caused the message
    */
@@ -134,7 +133,8 @@ public final class Debugger
     if (isInDebugMode_)
     {
       System.out.println(location + ": " + error);
-      cause.printStackTrace();
+      if (cause != null)
+        cause.printStackTrace();
     }
     
     if (logger_ != null)
@@ -144,20 +144,18 @@ public final class Debugger
   /**
    * Prints the specified error to the log, and to the default stream (if
    *  the debugger is in debug mode).
+   * @param location The class and method the error occurred in, ex: "Debugger: print()"
    * @param error The message to print
    */
   public static void error(String location, String error)
   {
-    if (isInDebugMode_)
-      System.out.println(location + ": " + error);
-    
-    if (logger_ != null)
-      logger_.log("ERROR", location, error, null, false);
+    error(location, error, null);
   }
   
   /**
    * Prints the specified error and cause (exception/error) to the log, and to
    *  the default stream (if the debugger is in debug mode).
+   * @param location The class and method the error occurred in, ex: "Debugger: print()"
    * @param error The message to print
    * @param cause The exception/error that caused the message
    */
@@ -166,7 +164,8 @@ public final class Debugger
     if (isInDebugMode_)
     {
       System.out.println(location + ": " + error);
-      cause.printStackTrace();
+      if (cause != null)
+        cause.printStackTrace();
     }
     
     if (logger_ != null)
@@ -175,25 +174,25 @@ public final class Debugger
 
   /**
    * Prints the specified error to the log and to the error stream.
+   * @param location The class and method the error occurred in, ex: "Debugger: print()"
    * @param error The error message to print
    */
   public static void fatal(String location, String error)
   {
-    System.err.println(location + ": " + error);
-    
-    if (logger_ != null)
-      logger_.log("SEVERE", location, error, null, false);
+    fatal(location, error, null);
   }
 
   /**
    * Prints the specified error and cause to the log and to the error stream.
+   * @param location The class and method the error occurred in, ex: "Debugger: print()"
    * @param error The error message to print
    * @param cause The exception/error that caused the error
    */
   public static void fatal(String location, String error, Throwable cause)
   {
     System.err.println(location + ": " + error);
-    cause.printStackTrace();
+    if (cause != null)
+      cause.printStackTrace();
     
     if (logger_ != null)
       logger_.log("SEVERE", location, error, cause, true);
