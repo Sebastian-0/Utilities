@@ -60,10 +60,12 @@ public class Pool<E extends Poolable> {
     lock_ = new Object();
     
     class_ = c;
+    parameterTypes_ = parameterTypes;
 
     try
     {
-      constructor_ = class_.getConstructor(parameterTypes);
+      constructor_ = class_.getDeclaredConstructor(parameterTypes);
+      constructor_.setAccessible(true);
       
       if (parameterTypes.length == 0)
         argumentList_ = new Object[0];
