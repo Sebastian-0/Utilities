@@ -1,5 +1,4 @@
-[![Release](https://jitpack.io/v/Sebastian-0/Utilities.svg)]
-(https://jitpack.io/#Sebastian-0/Utilities)
+[![Release](https://jitpack.io/v/Sebastian-0/Utilities.svg)](https://jitpack.io/#Sebastian-0/Utilities)
 
 # Utilities
 This repository contains some general-purpose utilites that I use in my projects. The following are some of the utilities included:
